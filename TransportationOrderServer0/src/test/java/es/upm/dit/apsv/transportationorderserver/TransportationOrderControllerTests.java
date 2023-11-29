@@ -28,7 +28,7 @@ import es.upm.dit.apsv.transportationorderserver.model.TransportationOrder;
 
 @WebMvcTest(TransportationOrderController.class)
 public class TransportationOrderControllerTests {
-    
+
   @InjectMocks
   private TransportationOrderController business;
 
@@ -53,25 +53,24 @@ public class TransportationOrderControllerTests {
               .andReturn();
   }
 
-  private List<TransportationOrder> getAllTestOrders(){
-      
-      ObjectMapper objectMapper = new ObjectMapper();
-      
-      ArrayList<TransportationOrder> orders =
-              new ArrayList<TransportationOrder>();
-      
-              TransportationOrder order = null;
+  private List<TransportationOrder> getAllTestOrders() {
 
-      try(BufferedReader br = new BufferedReader(new FileReader(
-                      new ClassPathResource("orders.json").getFile()))) {
-          for(String line; (line = br.readLine()) != null; ) {
-            order = objectMapper.readValue(line, TransportationOrder.class);
-            orders.add(order);
-          }
-        } catch (IOException e) {
-              e.printStackTrace();
+    ObjectMapper objectMapper = new ObjectMapper();
+
+    ArrayList<TransportationOrder> orders = new ArrayList<TransportationOrder>();
+
+    TransportationOrder order = null;
+
+    try (BufferedReader br = new BufferedReader(new FileReader(
+        new ClassPathResource("orders.json").getFile()))) {
+      for (String line; (line = br.readLine()) != null;) {
+        order = objectMapper.readValue(line, TransportationOrder.class);
+        orders.add(order);
       }
-      return orders;
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return orders;
   }
 
   @Test
@@ -82,5 +81,10 @@ public class TransportationOrderControllerTests {
         40.4562191,-3.8707211,1591692196000L,42.0206372,-4.5330132,
         0,0.0,0.0,0)));
     // now write the rest of the test case...
+    /*
+    Defina una segunda interacción en la que envíe una segunda solicitud GET que obtendrá un tipo de respuesta fundamentalmente diferente. 
+    Puede hacerlo seleccionando una ID que no esté en la lista de pedidos precargados. 
+    Piensa cuál debería ser la respuesta esperada en este caso y completa el caso de prueba con esa información. 
+    */
   }
-} 
+}
