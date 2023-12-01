@@ -48,15 +48,12 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 		</dependency>
-
-
 		<!-- swagger api-doc -->		
 		<dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>1.6.14</version>
         </dependency>
-
 		<!-- lombok to ease class definitios -->		
 		<dependency>
         	<groupId>org.projectlombok</groupId>
@@ -65,7 +62,6 @@
         	<scope>provided</scope>
     	</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
