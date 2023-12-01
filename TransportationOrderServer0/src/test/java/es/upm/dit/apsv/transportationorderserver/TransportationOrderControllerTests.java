@@ -81,10 +81,29 @@ public class TransportationOrderControllerTests {
         40.4562191,-3.8707211,1591692196000L,42.0206372,-4.5330132,
         0,0.0,0.0,0)));
     // now write the rest of the test case...
-    /*
+    //create the mockmvc request
+    RequestBuilder request = MockMvcRequestBuilders
+              .get("/transportationorders")
+              .accept(MediaType.APPLICATION_JSON);
+      
+      MvcResult result = mockMvc.perform(request)
+              .andExpect(status().isOk())
+              .andReturn();
+    
+  }
+   /*
     Defina una segunda interacción en la que envíe una segunda solicitud GET que obtendrá un tipo de respuesta fundamentalmente diferente. 
     Puede hacerlo seleccionando una ID que no esté en la lista de pedidos precargados. 
     Piensa cuál debería ser la respuesta esperada en este caso y completa el caso de prueba con esa información. 
     */
+  @Test
+  public void testUnexistOrder() throws Exception {
+    RequestBuilder request = MockMvcRequestBuilders
+              .get("/transportationorders/43568BWS")
+              .accept(MediaType.APPLICATION_JSON);
+    MvcResult result = mockMvc.perform(request)
+            .andExpect(status().is4xxClientError())
+            .andReturn();
+    
   }
 }
