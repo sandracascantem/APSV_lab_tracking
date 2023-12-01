@@ -26,5 +26,5 @@ jobs:
         distribution: 'adopt'
         java-version: 14
     - name: Run all defined tests and generate war with Maven
-      run: mvn -B verify --file TransportationOrderServer0/pom.xml
-    - run: ls ${GITHUB_WORKSPACE}/target/*.jar
+      run: mvn -B verify --file pom.xml
+    - run: ls ${GITHUB_WORKSPACE}/TransportationOrderServer0/target/*.jar
