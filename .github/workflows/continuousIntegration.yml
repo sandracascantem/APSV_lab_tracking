@@ -55,5 +55,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/sandracascantem/tos:latest/TransportationOrderServer0
+          tags: ghcr.io/sandracascantem/tos:latest
 
