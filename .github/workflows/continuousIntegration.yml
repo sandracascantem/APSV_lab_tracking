@@ -55,5 +55,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/sandracascantem/TransportationOrderServer0/tos:latest
+          tags: ghcr.io/sandracascantem/APSV_lab_tracking/TransportationOrderServer0/tos:latest
 
