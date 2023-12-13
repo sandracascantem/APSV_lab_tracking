@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
       - name: traceproducer
-        image: ghcr.io/yourGitHubUsername/traceproducer
+        image: ghcr.io/sandracascantem/tg
         ports:
         - containerPort: 8080
         env:
