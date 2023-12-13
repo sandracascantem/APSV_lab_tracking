@@ -40,7 +40,7 @@ jobs:
         distribution: 'adopt'
         java-version: 14
     - name: Run all defined tests and generate war with Maven
-      run: mvn -B verify --file pom.xml
+      run: mvn -B verify --file TransportationOrderServer0/pom.xml
     -
         name: Login to GHCR.IO
         uses: docker/login-action@v2
