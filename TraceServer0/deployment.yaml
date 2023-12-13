@@ -36,6 +36,10 @@ spec:
         - containerPort: 8080
         env:
         - name: spring.cloud.stream.kafka.binder.brokers
-          value: "${KAFKA_SERVICE_SERVICE_HOST}:9092"
+          value: "${KAFKA_SERVICE_SERVICE_HOST}:9092" # Configuración para Kafka
+        - name: TRANSPORTATION_ORDER_SERVICE_HOST
+          value: "transportation-order-service" # Configuración para TransportationOrderServer
+        - name: TRANSPORTATION_ORDER_SERVICE_PORT
+          value: "8080" # Puerto del servicio TransportationOrderServer
       imagePullSecrets:
       - name: github-registry
