@@ -72,7 +72,7 @@ jobs:
     - id: 'get-credentials'
       uses: 'google-github-actions/get-gke-credentials@v1'
       with:
-        cluster_name: 'apsv-23'
+        cluster_name: 'apsv'
         location: 'us-central1'
     # The KUBECONFIG env var is automatically exported and picked up by kubectl.
     - id: 'deployment-mypod'
