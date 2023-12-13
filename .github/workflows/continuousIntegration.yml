@@ -53,7 +53,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3 
         with:
-          context: .
+          context: TransportationOrderServer0/
           push: true
           tags: ghcr.io/sandracascantem/tos:latest
 
