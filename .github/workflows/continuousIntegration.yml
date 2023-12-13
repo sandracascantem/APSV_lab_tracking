@@ -77,6 +77,6 @@ jobs:
     # The KUBECONFIG env var is automatically exported and picked up by kubectl.
     - id: 'deployment-mypod'
       run: 'kubectl create secret docker-registry github-registry --docker-server="ghcr.io" --docker-username="sandracascantem" --docker-password="${{ secrets.PAT }}" --docker-email="sandracascantemoran@gmail.com" -o yaml --dry-run=client | kubectl apply -f -'
-    - run: 'kubectl apply -f deployment.yaml'
+    - run: 'kubectl apply -f TransportationOrderServer0/deployment.yaml'
     - run: 'kubectl get deployments'
     - run: 'kubectl get pods'
