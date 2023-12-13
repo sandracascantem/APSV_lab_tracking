@@ -15,6 +15,7 @@ jobs:
         java-version: 14
     - name: Build project with Maven
       run: mvn -B compile --file TransportationOrderServer0/pom.xml
+      
   # verify:
   #   needs: build
   #   runs-on: ubuntu-latest
@@ -54,5 +55,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/sandracascantem/tos:latest
+          tags: TransportationOrderServer0/ghcr.io/sandracascantem/tos:latest
 
