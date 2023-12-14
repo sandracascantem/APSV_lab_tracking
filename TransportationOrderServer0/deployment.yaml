@@ -34,5 +34,9 @@ spec:
         image: ghcr.io/sandracascantem/tos
         ports:
         - containerPort: 8080
+      #
+      env:
+        - name: spring.cloud.stream.kafka.binder.brokers
+          value: "${KAFKA_SERVICE_SERVICE_HOST}:9092"
       imagePullSecrets:
       - name: github-registry
