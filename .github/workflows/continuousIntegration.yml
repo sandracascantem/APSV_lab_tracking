@@ -5,7 +5,6 @@ env:
   MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
 jobs:
   build:
-    #for TransportatioOrderServer0
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -16,13 +15,7 @@ jobs:
         java-version: 14
     - name: Build TransportationOrderServer0 project with Maven
       run: mvn -B compile --file TransportationOrderServer0/pom.xml
-    #for GPSEnabledTrucksSimulator
-    - name: Build GPSEnabledTrucksSimulator project with Maven
-      run: mvn -B compile --file GPSEnabledTrucksSimulator/pom.xml
-    #for TraceServer0
-    - name: Build TraceServer0 project with Maven
-      run: mvn -B compile --file TraceServer0/pom.xml
-      
+
   # verify:
   #   needs: build
   #   runs-on: ubuntu-latest
@@ -38,7 +31,6 @@ jobs:
   #   - run: ls ${GITHUB_WORKSPACE}/TransportationOrderServer0/target/*.jar
   
   verify-and-package:
-    #for TransportatioOrderServer0
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -64,43 +56,8 @@ jobs:
           context: TransportationOrderServer0/
           push: true
           tags: ghcr.io/sandracascantem/tos:latest
-    #for GPSEnabledTrucksSimulator
-    - name: Run all GPSEnabledTrucksSimulator defined tests and generate war with Maven
-      run: mvn -B verify --file GPSEnabledTrucksSimulator/pom.xml
-    -
-        name: Login to GHCR.IO
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: "sandracascantem"
-          password: ${{ secrets.PAT2 }}
-    -
-        name: Build and push
-        uses: docker/build-push-action@v3 
-        with:
-          context: GPSEnabledTrucksSimulator/
-          push: true
-          tags: ghcr.io/sandracascantem/tg:latest
-    #for TraceServer0
-    - name: Run all TraceServer0 defined tests and generate war with Maven
-      run: mvn -B verify --file TraceServer0/pom.xml
-    -
-        name: Login to GHCR.IO
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: "sandracascantem"
-          password: ${{ secrets.PAT3 }}
-    -
-        name: Build and push
-        uses: docker/build-push-action@v3 
-        with:
-          context: TraceServer0/
-          push: true
-          tags: ghcr.io/sandracascantem/tr:latest
 
   deploy:
-    #for TransportatioOrderServer0
     needs: verify-and-package
     runs-on: ubuntu-latest
     permissions:
@@ -123,41 +80,3 @@ jobs:
     - run: 'kubectl apply -f TransportationOrderServer0/deployment.yaml'
     - run: 'kubectl get deployments'
     - run: 'kubectl get pods'
-    #for GPSEnabledTrucksSimulator
-    - uses: actions/checkout@v3
-    - id: 'auth2'
-      uses: 'google-github-actions/auth@v1'
-      with:
-        credentials_json: '${{ secrets.GCLOUD_SA2 }}'
-    - id: 'get-credentials2'
-      uses: 'google-github-actions/get-gke-credentials@v1'
-      with:
-        cluster_name: 'apsv'
-        location: 'us-central1'
-      # The KUBECONFIG env var is automatically exported and picked up by kubectl.
-    - id: 'deployment-mypod2'
-      run: 'kubectl create secret docker-registry github-registry --docker-server="ghcr.io" --docker-username="sandracascantem" --docker-password="${{ secrets.PAT2 }}" --docker-email="sandracascantemoran@gmail.com" -o yaml --dry-run=client | kubectl apply -f -'
-    - run: 'kubectl apply -f GPSEnabledTrucksSimulator/deployment.yaml'
-    - run: 'kubectl get deployments'
-    - run: 'kubectl get pods'
-    #for TraceServer0
-    - uses: actions/checkout@v3
-    - id: 'auth3'
-      uses: 'google-github-actions/auth@v1'
-      with:
-        credentials_json: '${{ secrets.GCLOUD_SA3 }}'
-    - id: 'get-credentials3'
-      uses: 'google-github-actions/get-gke-credentials@v1'
-      with:
-        cluster_name: 'apsv'
-        location: 'us-central1'
-      # The KUBECONFIG env var is automatically exported and picked up by kubectl.
-    - id: 'deployment-mypod3'
-      run: 'kubectl create secret docker-registry github-registry --docker-server="ghcr.io" --docker-username="sandracascantem" --docker-password="${{ secrets.PAT3 }}" --docker-email="sandracascantemoran@gmail.com" -o yaml --dry-run=client | kubectl apply -f -'
-    - run: 'kubectl apply -f TraceServer0/deployment.yaml'
-    - run: 'kubectl get deployments'
-    - run: 'kubectl get pods'
-
-    
-    
-      
