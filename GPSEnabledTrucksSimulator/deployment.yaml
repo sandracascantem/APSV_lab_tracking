@@ -31,15 +31,11 @@ spec:
     spec:
       containers:
       - name: traceproducer
-        image: ghcr.io/sandracascantem/tg
+        image: ghcr.io/sandracascantem/tos
         ports:
         - containerPort: 8080
         env:
         - name: spring.cloud.stream.kafka.binder.brokers
-          value: "${KAFKA_SERVICE_SERVICE_HOST}:9092" # Configuración para Kafka
-        - name: TRANSPORTATION_ORDER_SERVICE_HOST
-          value: "transportation-order-service" # Configuración para TransportationOrderService
-        - name: TRANSPORTATION_ORDER_SERVICE_PORT
-          value: "8080" # Puerto del servicio TransportationOrderService
+          value: "${KAFKA_SERVICE_SERVICE_HOST}:9092"
       imagePullSecrets:
       - name: github-registry
